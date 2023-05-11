@@ -1,0 +1,40 @@
+{
+  "expo": {
+    "name": "app8m",
+    "slug": "app8m",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#f00"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.hit7.app8m"
+    },
+    "android": {
+      "package": "com.hit7.app8m",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "scheme": "hitapp8m",
+    "extra": {
+      "eas": {
+        "projectId": "d082263b-1b49-40e7-94ef-666509ff8ccf"
+      }
+    }
+  }
+}
