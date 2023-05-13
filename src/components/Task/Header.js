@@ -6,8 +6,9 @@ import getColorByTaskType from "../../utils/getColorByTaskType";
 export default function Header(props) {
   // const { title, order, intime, image, type } = props;
   const { name, order, image, type } = props;
-  console.log("header🤡"+name);
-  const color = getColorByTaskType(type);
+  console.log("header🤡"+type);
+  const tipo=type.split(' ')[0]
+  const color = getColorByTaskType(tipo.slice(2));
 
   const bgStyle = [{ backgroundColor: color, ...styles.bg }];
 
@@ -19,7 +20,7 @@ export default function Header(props) {
       <SafeAreaView style={styles.content}>
         <View style={styles.header}>
           {/* <Text style={styles.name}>{capitalize(title)} {intime}</Text> */}
-          <Text style={styles.name}>{capitalize(name)} </Text>
+          <Text style={styles.name}>{type} : {capitalize(name)} </Text>
           {/* <Text style={styles.order}>#{`${order}`.padStart(3, 0)}</Text> */}
         </View>
         <View style={styles.contentImg}>

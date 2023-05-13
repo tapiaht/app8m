@@ -32,7 +32,7 @@ export default function Advice() {
         // console.log("task id "+TaskDetails.id)*
         // console.log(TaskDetails);*
         // const result = TaskDetails.json();
-        // const tipo=task.title.split(' ')[0]
+        // const tipo=task.name.split(' ')[0]
         // console.log("title task "+tipo.slice(2))
         TasksArray.push({
           id: task.id,
@@ -42,7 +42,7 @@ export default function Advice() {
           // type: TaskDetails.types[0].type.name,
           intime:task.intime,
           // type: tipo.slice(2),
-          type: task.type,
+          type: task.name,
           // order: TaskDetails.order,
           // image: TaskDetails.sprites.other["official-artwork"].front_default,
           image:TaskDetails.picture

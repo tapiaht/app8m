@@ -48,7 +48,7 @@ export default function Task(props) {
   console.log(data);
   // console.log("🧺 "+JSON.stringify(Task.name))
   if (!Task) return null;
-  // const tipo=Task.title.split(' ')[0]
+  const tipo=Task.name.split(' ')[0]
   return (
     <ScrollView>
       <Header
@@ -59,7 +59,7 @@ export default function Task(props) {
         // type={Task.types[0].type.name}
         // type={tipo.slice(2)}
         image={Task.picture}
-        type={Task.type}
+        type={Task.name}
       />
       <Text style={styles.largeText}> {Task.advice} </Text>
       {/* <Type types={Task.types} /> */}

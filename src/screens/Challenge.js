@@ -28,13 +28,14 @@ export default function Challenge() {
             // const TaskDetails = await getTaskDetail(id);+
             const TaskDetails = await getTaskDetailsApi(id);
             // const tipo=TaskDetails.title.split(' ')[0]
+            // const tipo=TaskDetails.name.split(' ')[0]
             TasksArray.push({
               id: TaskDetails.id,
               // title: TaskDetails.title,
               name: TaskDetails.title,
               // type: TaskDetails.types[0].type.name,
-              // type: tipo.slice(2)
-              type: TaskDetails.type,
+              // type: tipo.slice(2),
+              type: TaskDetails.name,
               // order: TaskDetails.order,
               // image:
               //   TaskDetails.sprites.other["official-artwork"].front_default,

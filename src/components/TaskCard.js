@@ -13,8 +13,9 @@ import getColorByTaskType from "../utils/getColorByTaskType";
 export default function TaskCard(props) {
   const { Task } = props;
   const navigation = useNavigation();
-  // console.log("🥧TaskCard.js goToTask id "+Task.id)
-  const TaskColor = getColorByTaskType(Task.type);
+  const tipo=Task.type.split(' ')[0]
+  console.log("🥧TaskCard.js goToTask id "+Task.type)
+  const TaskColor = getColorByTaskType(tipo.slice(2));
   const bgStyles = { backgroundColor: TaskColor, ...styles.bgStyles };
 
   const goToTask = () => {
@@ -32,7 +33,7 @@ export default function TaskCard(props) {
               {/* #{`${Task.order}`.padStart(3, 0)} */}
             </Text>
             {/* <Text style={styles.name}>{capitalize(Task.title)} {Task.intime}</Text> */}
-            <Text style={styles.name}>{capitalize(Task.name)}</Text>
+            <Text style={styles.name}>{Task.type}:{capitalize(Task.name)}</Text>
             <Image source={{ uri: Task.image }} style={styles.image} />
           </View>
         </View>
