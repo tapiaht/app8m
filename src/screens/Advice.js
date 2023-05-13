@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { SafeAreaView } from "react-native";
-import { getTasksApi, getTaskDetailsByUrlApi } from "../api/Task";
+import { getTasksApi, getTaskDetailsApi,getTaskDetailsByUrlApi } from "../api/task";
 import TaskList from "../components/TaskList";
 
 export default function Advice() {
@@ -16,22 +16,42 @@ export default function Advice() {
   const loadTasks = async () => {
     try {
       const response = await getTasksApi(nextUrl);
-      setNextUrl(response.next);
-
+      // console.log("🛏️"+response)
+      const data =JSON.parse(JSON.stringify(response));
+      // console.log(data.id)
+      setNextUrl(response);
+      console.log("🤩 "+response)
+      // setNextUrl(response.next);*
       const TasksArray = [];
-      for await (const Task of response.results) {
-        const TaskDetails = await getTaskDetailsByUrlApi(Task.url);
-
+      // const TaskDetails = await getTaskDetailsApi(data.id);+
+      for await (const task of response) {
+      // for await (const task of TaskDetails) {+
+        // const TaskDetails = await getTaskDetailsByUrlApi(task.url);*
+        const TaskDetails = await getTaskDetailsApi(task.id);
+        // console.log("task id "+task.id)
+        // console.log("task id "+TaskDetails.id)*
+        // console.log(TaskDetails);*
+        // const result = TaskDetails.json();
+        // const tipo=task.title.split(' ')[0]
+        // console.log("title task "+tipo.slice(2))
         TasksArray.push({
-          id: TaskDetails.id,
-          name: TaskDetails.name,
-          type: TaskDetails.types[0].type.name,
-          order: TaskDetails.order,
-          image: TaskDetails.sprites.other["official-artwork"].front_default,
+          id: task.id,
+          name: task.title,
+          // id: TaskDetails.id,
+          // name: TaskDetails.name,
+          // type: TaskDetails.types[0].type.name,
+          intime:task.intime,
+          // type: tipo.slice(2),
+          type: task.type,
+          // order: TaskDetails.order,
+          // image: TaskDetails.sprites.other["official-artwork"].front_default,
+          image:TaskDetails.picture
         });
       }
 
-      setTasks([...Tasks, ...TasksArray]);
+      // setTasks([...Tasks, ...TasksArray]);*
+      setTasks([...TasksArray]);
+      console.log(TasksArray[1])
     } catch (error) {
       console.error(error);
     }

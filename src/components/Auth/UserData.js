@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Button } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import { size } from "lodash";
 import useAuth from "../../hooks/useAuth";
-import { getTasksChallengeApi } from "../../api/Challenge";
+import { getTasksChallengeApi } from "../../api/challenge";
 
 export default function UserData() {
   const { auth, logout } = useAuth();
@@ -26,12 +26,12 @@ export default function UserData() {
     <View style={styles.content}>
       <View style={styles.titleBlock}>
         <Text style={styles.title}>Bienvenido,</Text>
-        <Text style={styles.title}>{`${auth.firstName} ${auth.lastName}`}</Text>
+        <Text style={styles.title}>{`${auth.given_name} ${auth.family_name}`}</Text>
       </View>
 
       <View style={styles.dataContent}>
-        <ItemMenu title="Nombre" text={`${auth.firstName} ${auth.lastName}`} />
-        <ItemMenu title="Username" text={auth.username} />
+        <ItemMenu title="Nombre" text={`${auth.given_name} ${auth.family_name}`} />
+        <ItemMenu title="Username" text={auth.given_name} />
         <ItemMenu title="Email" text={auth.email} />
         <ItemMenu title="Total Favoritos" text={`${total} Tasks`} />
       </View>

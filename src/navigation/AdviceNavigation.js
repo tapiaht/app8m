@@ -6,6 +6,7 @@ import TaskScreen from "../screens/Task";
 const Stack = createStackNavigator();
 
 export default function AdviceNavigation() {
+  
   return (
     <Stack.Navigator>
       <Stack.Screen

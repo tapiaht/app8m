@@ -5,14 +5,15 @@ import {
   addTaskChallengeApi,
   isTaskChallengeApi,
   removeTaskChallengeApi,
-} from "../../api/Challenge";
+} from "../../api/challenge";
+// } from "../../api/Challenge";
 
 export default function Challenge(props) {
   const { id } = props;
   const [isChallenge, setIsChallenge] = useState(undefined);
   const [reloadCheck, setReloadCheck] = useState(false);
   const Icon = isChallenge ? FontAwesome : FontAwesome5;
-
+  console.log("task challenge id ",id)
   useEffect(() => {
     (async () => {
       try {

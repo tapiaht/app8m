@@ -5,7 +5,7 @@ import getColorByTaskType from "../../utils/getColorByTaskType";
 
 export default function Type(props) {
   const { types } = props;
-
+  console.log("types AUN NO LLEGA"+types)
   return (
     <View style={styles.content}>
       {map(types, (item, index) => (

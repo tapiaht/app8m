@@ -4,7 +4,9 @@ import { capitalize } from "lodash";
 import getColorByTaskType from "../../utils/getColorByTaskType";
 
 export default function Header(props) {
+  // const { title, order, intime, image, type } = props;
   const { name, order, image, type } = props;
+  console.log("header🤡"+name);
   const color = getColorByTaskType(type);
 
   const bgStyle = [{ backgroundColor: color, ...styles.bg }];
@@ -12,11 +14,13 @@ export default function Header(props) {
   return (
     <>
       <View style={bgStyle} />
+      {/* <View style={styles.name} /> */}
 
       <SafeAreaView style={styles.content}>
         <View style={styles.header}>
-          <Text style={styles.name}>{capitalize(name)}</Text>
-          <Text style={styles.order}>#{`${order}`.padStart(3, 0)}</Text>
+          {/* <Text style={styles.name}>{capitalize(title)} {intime}</Text> */}
+          <Text style={styles.name}>{capitalize(name)} </Text>
+          {/* <Text style={styles.order}>#{`${order}`.padStart(3, 0)}</Text> */}
         </View>
         <View style={styles.contentImg}>
           <Image source={{ uri: image }} style={styles.image} />
@@ -37,7 +41,7 @@ const styles = StyleSheet.create({
   },
   content: {
     marginHorizontal: 20,
-    marginTop: 30,
+    marginTop: 10,
   },
   header: {
     flexDirection: "row",
@@ -58,10 +62,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    top: 30,
+    top: 1,
   },
   image: {
-    width: 250,
+    width: 400,
     height: 300,
     resizeMode: "contain",
   },

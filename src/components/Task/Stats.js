@@ -19,12 +19,14 @@ export default function Stats(props) {
       {map(stats, (item, index) => (
         <View key={index} style={styles.block}>
           <View style={styles.blockTitle}>
-            <Text style={styles.statName}>{capitalize(item.stat.name)}</Text>
+            {/* <Text style={styles.statName}>{capitalize(item.stat.name)}</Text> */}
           </View>
           <View style={styles.blockInfo}>
-            <Text style={styles.number}>{item.base_stat}</Text>
+            {/* <Text style={styles.number}>{item.base_stat}</Text> */}
+            {/* <Text style={styles.number}>{item.title}</Text> */}
             <View style={styles.bgBar}>
-              <View style={[styles.bar, barStyles(item.base_stat)]} />
+              {/* <View style={[styles.bar, barStyles(item.base_stat)]} /> */}
+              {/* <View style={[styles.bar, barStyles(item.id)]} /> */}
             </View>
           </View>
         </View>

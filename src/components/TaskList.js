@@ -9,7 +9,7 @@ import TaskCard from "./TaskCard";
 
 export default function TaskList(props) {
   const { Tasks, loadTasks, isNext } = props;
-
+  // console.log("😈 Tasklist.js "+JSON.stringify(Tasks))
   const laodMore = () => {
     loadTasks();
   };

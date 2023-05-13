@@ -13,11 +13,12 @@ import getColorByTaskType from "../utils/getColorByTaskType";
 export default function TaskCard(props) {
   const { Task } = props;
   const navigation = useNavigation();
-
+  // console.log("🥧TaskCard.js goToTask id "+Task.id)
   const TaskColor = getColorByTaskType(Task.type);
   const bgStyles = { backgroundColor: TaskColor, ...styles.bgStyles };
 
   const goToTask = () => {
+    // console.log("🥧TaskCard.js goToTask id "+Task.id)
     navigation.navigate("Task", { id: Task.id });
   };
 
@@ -26,11 +27,13 @@ export default function TaskCard(props) {
       <View style={styles.card}>
         <View style={styles.spacing}>
           <View style={bgStyles}>
+          {/* <View > */}
             <Text style={styles.number}>
-              #{`${Task.order}`.padStart(3, 0)}
+              {/* #{`${Task.order}`.padStart(3, 0)} */}
             </Text>
+            {/* <Text style={styles.name}>{capitalize(Task.title)} {Task.intime}</Text> */}
             <Text style={styles.name}>{capitalize(Task.name)}</Text>
-            {/* <Image source={{ uri: Task.image }} style={styles.image} /> */}
+            <Image source={{ uri: Task.image }} style={styles.image} />
           </View>
         </View>
       </View>
@@ -41,7 +44,7 @@ export default function TaskCard(props) {
 const styles = StyleSheet.create({
   card: {
     flex: 1,
-    height: 130,
+    height: 110,
   },
   spacing: {
     flex: 1,
@@ -63,7 +66,8 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "bold",
     fontSize: 15,
-    paddingTop: 10,
+    paddingTop: 2,
+    paddingRight: '30%',
   },
   image: {
     position: "absolute",
@@ -71,5 +75,6 @@ const styles = StyleSheet.create({
     right: 2,
     width: 90,
     height: 90,
+    borderRadius: 45,
   },
 });
