@@ -37,17 +37,19 @@ export default function LoginForm() {
       if (username !== user.username || password !== user.password) {
         setError("El usuario o la contraseña no son correcto");
       } else {
-        // login(userDetails);
-        login(userInfo);
+        login(userDetails);
+        // login(userInfo);
       }
     },
   });
   function start(){
-    login(userInfo);
+    // login(userInfo);
+    login(useFormik);
   }
  
   const [request, response, promptAsync] = Google.useAuthRequest({
     androidClientId: "1053246940642-990uadounf2228ghslnt9tmmbnpa3p8i.apps.googleusercontent.com",
+    expoClientId: "1053246940642-990uadounf2228ghslnt9tmmbnpa3p8i.apps.googleusercontent.com",
     iosClientId: "",
     webClientId: "1053246940642-i9fslj8lggfj7bob9g5vgrainoo6jac8.apps.googleusercontent.com",
   });
@@ -89,24 +91,24 @@ export default function LoginForm() {
       console.log(error)
     }
   };
-  // const signOut=async ()=>{
-  //   try {
-  //     await GoogleSignin.revokeAccess();
-  //     await auth().signOut();
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
-  // const handleLogout = async () => {
-  //   try {
-  //     setUserInfo(null);
-  //   this.setState({ userInfo: null });
-  //   await AsyncStorage.removeItem("@user");
-  //   start();
-  //   } catch (error) {
-  //     // console.error(error);
-  //   }
-  // };
+  const signOut=async ()=>{
+    try {
+      await GoogleSignin.revokeAccess();
+      await auth().signOut();
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const handleLogout = async () => {
+    try {
+      setUserInfo(null);
+    this.setState({ userInfo: null });
+    await AsyncStorage.removeItem("@user");
+    start();
+    } catch (error) {
+      // console.error(error);
+    }
+  };
   return (
     <View>
      {!userInfo ? (
@@ -141,7 +143,23 @@ export default function LoginForm() {
     </View>        
     )}                    
       <Text style={styles.title}>Iniciar sesión</Text>
-      <Button title="Entrar" onPress={start} />
+      <TextInput
+        placeholder="Nombre de usuario"
+        style={styles.input}
+        autoCapitalize="none"
+        value={formik.values.username}
+        onChangeText={(text) => formik.setFieldValue("username", text)}
+      />
+      <TextInput
+        placeholder="Contraseña"
+        style={styles.input}
+        autoCapitalize="none"
+        secureTextEntry={true}
+        value={formik.values.password}
+        onChangeText={(text) => formik.setFieldValue("password", text)}
+      />
+      {/* <Button title="Entrar" onPress={start} /> */}
+      <Button title="Entrar" onPress={formik.handleSubmit} />
       <Text style={styles.error}>{formik.errors.username}</Text>
       <Text style={styles.error}>{formik.errors.password}</Text>
       <Text style={styles.error}>{error}</Text>

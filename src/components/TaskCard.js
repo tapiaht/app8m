@@ -34,6 +34,7 @@ export default function TaskCard(props) {
             </Text>
             {/* <Text style={styles.name}>{capitalize(Task.title)} {Task.intime}</Text> */}
             <Text style={styles.name}>{Task.type}:{capitalize(Task.name)}</Text>
+            <Text style={styles.name}>Hora:{Task.intime}</Text>
             <Image source={{ uri: Task.image }} style={styles.image} />
           </View>
         </View>

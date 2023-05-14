@@ -60,6 +60,7 @@ export default function Task(props) {
         // type={tipo.slice(2)}
         image={Task.picture}
         type={Task.name}
+        intime={Task.intime}
       />
       <Text style={styles.largeText}> {Task.advice} </Text>
       {/* <Type types={Task.types} /> */}
