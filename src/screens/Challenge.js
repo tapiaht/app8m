@@ -26,6 +26,7 @@ export default function Challenge() {
     useCallback(() => {
       if (auth) {
         (async () => {
+          console.log("🤑 user "+Object.entries(auth))
           const response = await getTasksChallengeApi();
           const TasksArray = [];
           for await (const id of response) {
@@ -49,24 +50,16 @@ export default function Challenge() {
   const toggleSwitch = () => {  
       console.log("😈 "+isEnabled)
       if (!isEnabled) {
-        // TasksArray.forEach(element => {
-        //   const hr=element.intime.split(':')[0]
-        //   const mn=element.intime.split(':')[1]
-        //   schedulePushNotification(hr,mn); 
-        // }); 
+        Notifications.dismissAllNotificationsAsync();
         Tasks.forEach(item => {
           const [hour, minute] = item.intime.split(':').map(Number);
           console.log(hour)
           schedulePushNotification(hour, minute,item.name,item.title);
         });
-        //  schedulePushNotification(18,22);
-        //  schedulePushNotification(18,23);
       }
-      else Notifications.cancelAllScheduledNotificationsAsync();
-    
+      else Notifications.cancelAllScheduledNotificationsAsync();    
       setIsEnabled(previousState => !previousState)
     }
-
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
@@ -74,11 +67,9 @@ export default function Challenge() {
 
   useEffect(() => {
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
-
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
       setNotification(notification);
     });
-
     responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
       console.log(response);
     });
@@ -91,16 +82,10 @@ export default function Challenge() {
 return( 
 <View >
     {!auth ? <NoLogged /> :(
-    <>  
-      
+    <>        
       <View >
         <Text>Your expo push token: {expoPushToken}</Text>
-        {/* <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-          <Text>Title: {notification && notification.request.content.title} </Text>
-          <Text>Body: {notification && notification.request.content.body}</Text>
-          <Text>Data: {notification && JSON.stringify(notification.request.content.data)}</Text>
-        </View> */}
-
+        {/* <Text>User: {auth.name}</Text> */}
         <View style={styles.container}>
           <Switch
             trackColor={{false: '#767577', true: '#81b0ff'}}
@@ -133,7 +118,6 @@ async function schedulePushNotification(hr,m,todo,title) {
 
 async function registerForPushNotificationsAsync() {
   let token;
-
   if (Platform.OS === 'android') {
     await Notifications.setNotificationChannelAsync('default', {
       name: 'default',

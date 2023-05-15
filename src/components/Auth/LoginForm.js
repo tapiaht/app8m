@@ -11,11 +11,13 @@ import {
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { user, userDetails } from "../../utils/userDB";
+import { getUsersApi,addUsersApi } from "../../api/user";
 import useAuth from "../../hooks/useAuth";
-
+import { useFocusEffect } from '@react-navigation/native';
 import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { set } from "lodash";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -25,7 +27,7 @@ export default function LoginForm() {
 
   const [token, setToken] = useState("");
   const [userInfo, setUserInfo] = useState(null);
-
+  const [user, setUser] = useState(null);
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: Yup.object(validationSchema()),
@@ -43,8 +45,7 @@ export default function LoginForm() {
     },
   });
   function start(){
-    // login(userInfo);
-    login(useFormik);
+    login(user);    
   }
  
   const [request, response, promptAsync] = Google.useAuthRequest({
@@ -67,6 +68,10 @@ export default function LoginForm() {
     } else {
       setUserInfo(user);
       console.log("loaded locally");
+      fetchUser(user);
+      // const user = await getUsersApi(userInfo.email);
+      // console.log("🍺 "+user)
+      // setUser(user);
     }
   }
   const getLocalUser = async () => {
@@ -86,19 +91,35 @@ export default function LoginForm() {
       const user = await response.json();
       await AsyncStorage.setItem("@user", JSON.stringify(user));
       setUserInfo(user);
+      fetchUser(user);
       console.log("😈 user google ", user);
     } catch (error) {
       console.log(error)
     }
   };
-  const signOut=async ()=>{
-    try {
-      await GoogleSignin.revokeAccess();
-      await auth().signOut();
-    } catch (error) {
-      console.log(error)
-    }
-  }
+
+  async function fetchUser(userg){
+        try {
+          console.log("🌞 "+userg.email)
+          const user = await getUsersApi(userg.email);
+          // console.log("🍺 "+Object.entries(user))
+          if (user.message === "User not found") {
+            console.log('User not found');
+          const newuser={name:userg.name,email:userg.email}
+          const result = await addUsersApi(newuser);
+          console.log("💪 usuario creado"+Object.entries(result))
+          setUser(result)
+          } else {
+            console.log('User found '+Object.entries(user));
+            setUser(user)
+          }        
+        } catch (e) {
+          console.log("👃 "+e)
+          
+          // setUser(user)
+        }
+      };
+
   const handleLogout = async () => {
     try {
       setUserInfo(null);
@@ -110,8 +131,8 @@ export default function LoginForm() {
     }
   };
   return (
-    <View>
-     {!userInfo ? (
+  <View>
+   {!userInfo ? (
       <Button
         title="Iniciar Session Google"
         disabled={!request}
@@ -119,7 +140,8 @@ export default function LoginForm() {
           promptAsync();
           
         }}
-      />       
+      />
+             
     ) : (
       
       <View style={styles.card}>                        
@@ -143,7 +165,7 @@ export default function LoginForm() {
     </View>        
     )}                    
       <Text style={styles.title}>Iniciar sesión</Text>
-      <TextInput
+      {/* <TextInput
         placeholder="Nombre de usuario"
         style={styles.input}
         autoCapitalize="none"
@@ -157,9 +179,9 @@ export default function LoginForm() {
         secureTextEntry={true}
         value={formik.values.password}
         onChangeText={(text) => formik.setFieldValue("password", text)}
-      />
-      {/* <Button title="Entrar" onPress={start} /> */}
-      <Button title="Entrar" onPress={formik.handleSubmit} />
+      /> */}
+      <Button title="Entrar" onPress={start} />
+      {/* <Button title="Entrar" onPress={formik.handleSubmit} /> */}
       <Text style={styles.error}>{formik.errors.username}</Text>
       <Text style={styles.error}>{formik.errors.password}</Text>
       <Text style={styles.error}>{error}</Text>

@@ -26,12 +26,12 @@ export default function UserData() {
     <View style={styles.content}>
       <View style={styles.titleBlock}>
         <Text style={styles.title}>Bienvenido,</Text>
-        <Text style={styles.title}>{`${auth.given_name} ${auth.family_name}`}</Text>
+        <Text style={styles.title}>{`${auth.name}`}</Text>
       </View>
 
       <View style={styles.dataContent}>
-        <ItemMenu title="Nombre" text={`${auth.given_name} ${auth.family_name}`} />
-        <ItemMenu title="Username" text={auth.given_name} />
+        <ItemMenu title="Id" text={auth.id} />
+        <ItemMenu title="Nombre" text={`${auth.name} `} />
         <ItemMenu title="Email" text={auth.email} />
         <ItemMenu title="Total Favoritos" text={`${total} Tasks`} />
       </View>

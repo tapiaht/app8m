@@ -6,7 +6,6 @@ import {
   isTaskChallengeApi,
   removeTaskChallengeApi,
 } from "../../api/challenge";
-// } from "../../api/Challenge";
 
 export default function Challenge(props) {
   const { id } = props;

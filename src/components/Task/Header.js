@@ -5,11 +5,10 @@ import getColorByTaskType from "../../utils/getColorByTaskType";
 
 export default function Header(props) {
   // const { title, order, intime, image, type } = props;
-  const { name, order, image, type } = props;
+  const {name, order, image, type,intime } = props;
   console.log("header🤡"+type);
   const tipo=type.split(' ')[0]
   const color = getColorByTaskType(tipo.slice(2));
-
   const bgStyle = [{ backgroundColor: color, ...styles.bg }];
 
   return (
@@ -19,6 +18,7 @@ export default function Header(props) {
 
       <SafeAreaView style={styles.content}>
         <View style={styles.header}>
+          {/* <Text>{intime}</Text> */}
           {/* <Text style={styles.name}>{capitalize(title)} {intime}</Text> */}
           <Text style={styles.name}>{type} : {capitalize(name)} </Text>
           {/* <Text style={styles.order}>#{`${order}`.padStart(3, 0)}</Text> */}
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    // justifyContent: "space-between",
     alignItems: "center",
     paddingTop: 40,
   },

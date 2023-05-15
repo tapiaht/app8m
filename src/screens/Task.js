@@ -15,7 +15,8 @@ export default function Task(props) {
   } = props;
   const [Task, setTask] = useState(null);
   const { auth } = useAuth();
-  console.log("Task.js params vacio? > "+params.id)
+  console.log("Task.js params vacio? > "+Object.entries(params))
+  
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => auth && <Challenge id={Task?.id} />,
@@ -44,8 +45,8 @@ export default function Task(props) {
       }
     })();
   }, [params]);
-  const data = JSON.parse(JSON.stringify(Task));
-  console.log(data);
+  // const data = JSON.parse(JSON.stringify(Task));
+  // console.log(data);
   // console.log("🧺 "+JSON.stringify(Task.name))
   if (!Task) return null;
   const tipo=Task.name.split(' ')[0]
@@ -53,6 +54,7 @@ export default function Task(props) {
     <ScrollView>
       <Header
         // name={Task.title}
+        id={Task.id}
         name={Task.title}
         // order={Task.order}
         // image={Task.sprites.other["official-artwork"].front_default}

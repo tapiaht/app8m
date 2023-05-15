@@ -22,6 +22,7 @@
     },
     "android": {
       "package": "com.hit7.app8m",
+      "googleServicesFile": "./google-servicesapp8m.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
