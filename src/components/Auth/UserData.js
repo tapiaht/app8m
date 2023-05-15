@@ -13,9 +13,10 @@ export default function UserData() {
     useCallback(() => {
       (async () => {
         try {
-          const response = await getTasksChallengeApi();
+          const response = await getTasksChallengeApi(auth.id);
           setTotal(size(response));
         } catch (error) {
+          // console.log("😴 retos # "+error)
           setTotal(0);
         }
       })();
@@ -33,7 +34,7 @@ export default function UserData() {
         <ItemMenu title="Id" text={auth.id} />
         <ItemMenu title="Nombre" text={`${auth.name} `} />
         <ItemMenu title="Email" text={auth.email} />
-        <ItemMenu title="Total Favoritos" text={`${total} Tasks`} />
+        <ItemMenu title="Total Retos" text={`${total}`} />
       </View>
 
       <Button title="Desconectarse" onPress={logout} style={styles.btnLogoun} />

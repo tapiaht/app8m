@@ -26,16 +26,20 @@ export default function Challenge() {
     useCallback(() => {
       if (auth) {
         (async () => {
-          console.log("🤑 user "+Object.entries(auth))
-          const response = await getTasksChallengeApi();
+          const response = await getTasksChallengeApi(auth.id);
+          console.log("🤑 user "+Object.entries(response[1]))
           const TasksArray = [];
-          for await (const id of response) {
-            const TaskDetails = await getTaskDetailsApi(id);
+          for await (const item of response) {
+            console.log(item.todo_id)
+            // const TaskDetails = await getTaskDetailsApi(item.todo_id);
+            const TaskDetails = item;
             TasksArray.push({
-              id: TaskDetails.id,
+              id: TaskDetails.todo_id,
               name: TaskDetails.title,
-              type: TaskDetails.name,
+              user:TaskDetails.user,
+              type: TaskDetails.type,
               intime:TaskDetails.intime,
+              inday:TaskDetails.inday,
               // order: TaskDetails.order,
               image:TaskDetails.picture,
             });
@@ -85,7 +89,7 @@ return(
     <>        
       <View >
         <Text>Your expo push token: {expoPushToken}</Text>
-        {/* <Text>User: {auth.name}</Text> */}
+        {/* <Text>User: {Tasks[0].inday}</Text> */}
         <View style={styles.container}>
           <Switch
             trackColor={{false: '#767577', true: '#81b0ff'}}

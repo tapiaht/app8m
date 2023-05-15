@@ -19,7 +19,7 @@ export default function Task(props) {
   
   useEffect(() => {
     navigation.setOptions({
-      headerRight: () => auth && <Challenge id={Task?.id} />,
+      headerRight: () => auth && <Challenge id={Task?.id} idu={auth.id} />,
       headerLeft: () => (
         <Icon
           name="arrow-left"

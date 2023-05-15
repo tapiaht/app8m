@@ -8,16 +8,30 @@ import {
 } from "../../api/challenge";
 
 export default function Challenge(props) {
-  const { id } = props;
+  const { id,idu } = props;
   const [isChallenge, setIsChallenge] = useState(undefined);
   const [reloadCheck, setReloadCheck] = useState(false);
+  const [idChallenge, setIdChallenge] = useState(undefined);
   const Icon = isChallenge ? FontAwesome : FontAwesome5;
-  console.log("task challenge id ",id)
+  console.log("task is challenge? ",isChallenge)
   useEffect(() => {
     (async () => {
       try {
-        const response = await isTaskChallengeApi(id);
-        setIsChallenge(response);
+        const response = await isTaskChallengeApi(idu,id);
+        const result = await response.json();
+        // console.log(Object.entries(result.id).id)
+        console.log("😈 id reto "+result.id)
+        setIdChallenge(result.id)
+        console.log(response.status)
+
+        if (response.status===404)
+        {console.log("❤️ "+response)
+        setIsChallenge(false);
+        }
+        else{
+          setIsChallenge(true);
+          
+        }
       } catch (error) {
         setIsChallenge(false);
       }
@@ -30,7 +44,7 @@ export default function Challenge(props) {
 
   const addChallenge = async () => {
     try {
-      await addTaskChallengeApi(id);
+      await addTaskChallengeApi(id,idu);
       onReloadCheckChallenge();
     } catch (error) {
       console.log(error);
@@ -39,7 +53,8 @@ export default function Challenge(props) {
 
   const removeChallenge = async () => {
     try {
-      await removeTaskChallengeApi(id);
+      console.log("🌞 idch "+idChallenge)
+      await removeTaskChallengeApi(idChallenge);
       onReloadCheckChallenge();
     } catch (error) {
       console.log(error);
