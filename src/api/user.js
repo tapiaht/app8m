@@ -29,6 +29,7 @@ export async function addUsersApi(result) {
       body: JSON.stringify({
         name: result.name,
         email: result.email,
+        picture:result.picture,
       }),
     });
     const newUser = await response.json();

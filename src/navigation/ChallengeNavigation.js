@@ -11,7 +11,7 @@ export default function ChallengeNavigation() {
       <Stack.Screen
         name="Challenge"
         component={ChallengeScreen}
-        options={{ title: "RETOS DEL DÍA" }}
+        options={{ title: "RETOS DEL DÍA: Se sugiere agregar 8 remedios" }}
       />
       <Stack.Screen
         name="Task"

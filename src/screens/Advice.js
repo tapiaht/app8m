@@ -1,69 +1,98 @@
 import React, { useState, useEffect } from "react";
-import { SafeAreaView } from "react-native";
-import { getTasksApi, getTaskDetailsApi,getTaskDetailsByUrlApi } from "../api/task";
+import { SafeAreaView, Button, View, StyleSheet  } from "react-native";
+import { getTasksApi } from "../api/task";
 import TaskList from "../components/TaskList";
+import Remedy from "./Remedy";
+import { useIsFocused } from "@react-navigation/native";
 
 export default function Advice() {
   const [Tasks, setTasks] = useState([]);
   const [nextUrl, setNextUrl] = useState(null);
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     (async () => {
       await loadTasks();
     })();
-  }, []);
+  }, [isFocused]);
 
   const loadTasks = async () => {
     try {
       const response = await getTasksApi(nextUrl);
-      // console.log("🛏️"+response)
-      const data =JSON.parse(JSON.stringify(response));
-      // console.log(data.id)
-      setNextUrl(response);
       console.log("🤩 "+response)
-      // setNextUrl(response.next);*
       const TasksArray = [];
-      // const TaskDetails = await getTaskDetailsApi(data.id);+
       for await (const task of response) {
-      // for await (const task of TaskDetails) {+
-        // const TaskDetails = await getTaskDetailsByUrlApi(task.url);*
-        const TaskDetails = await getTaskDetailsApi(task.id);
-        // console.log("task id "+task.id)
-        // console.log("task id "+TaskDetails.id)*
-        // console.log(TaskDetails);*
-        // const result = TaskDetails.json();
-        // const tipo=task.name.split(' ')[0]
-        // console.log("title task "+tipo.slice(2))
         TasksArray.push({
           id: task.id,
           name: task.title,
-          // id: TaskDetails.id,
-          // name: TaskDetails.name,
-          // type: TaskDetails.types[0].type.name,
-          intime:task.intime,
-          // type: tipo.slice(2),
           type: task.name,
-          // order: TaskDetails.order,
-          // image: TaskDetails.sprites.other["official-artwork"].front_default,
-          image:TaskDetails.picture
+          image:task.picture
         });
       }
-
-      // setTasks([...Tasks, ...TasksArray]);*
       setTasks([...TasksArray]);
-      console.log(TasksArray[1])
     } catch (error) {
       console.error(error);
     }
   };
 
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handleModalClose = () => {
+    setModalVisible(false);
+  };
+
+  const handleFormSubmit = (data) => {
+    // Realiza las acciones necesarias con los datos ingresados
+    console.log(data);
+    // Cierra el formulario modal
+    setModalVisible(false);
+    loadTasks();
+  };
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <TaskList
         Tasks={Tasks}
         loadTasks={loadTasks}
         isNext={nextUrl}
       />
+      <Button
+        title="Crear Remedio"
+        onPress={() => setModalVisible(!modalVisible)}
+        style={styles.floatingButton}
+      />
+     <Remedy
+        visible={modalVisible}
+        setModalVisible={setModalVisible}
+        onClose={handleModalClose}
+        onSubmit={handleFormSubmit}
+
+        style={styles.remedy}
+      />
+         
+
     </SafeAreaView>
   );
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    // alignItems: 'center',
+    position:"relative"
+  },
+  floatingButton: {
+    position: 'absolute',
+    bottom: 32,
+    right: 32,
+  },
+  remedy: {
+    position: 'absolute',
+    top: 100,
+    left: 20,
+    right: 20,
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 8,
+    elevation: 5,
+  },
+});

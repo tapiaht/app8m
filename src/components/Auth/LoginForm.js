@@ -10,14 +10,14 @@ import {
 } from "react-native";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { user, userDetails } from "../../utils/userDB";
+// import { user, userDetails } from "../../utils/userDB";
 import { getUsersApi,addUsersApi } from "../../api/user";
 import useAuth from "../../hooks/useAuth";
-import { useFocusEffect } from '@react-navigation/native';
+// import { useFocusEffect } from '@react-navigation/native';
 import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { set } from "lodash";
+// import { set } from "lodash";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -49,10 +49,12 @@ export default function LoginForm() {
   }
  
   const [request, response, promptAsync] = Google.useAuthRequest({
-    androidClientId: "1053246940642-990uadounf2228ghslnt9tmmbnpa3p8i.apps.googleusercontent.com",
-    expoClientId: "1053246940642-990uadounf2228ghslnt9tmmbnpa3p8i.apps.googleusercontent.com",
+    androidClientId: "721470406626-um6rqbohpkaqau0gbf5rbsn76h9eh3bu.apps.googleusercontent.com",
+       expoClientId: "721470406626-um6rqbohpkaqau0gbf5rbsn76h9eh3bu.apps.googleusercontent.com",
     iosClientId: "",
-    webClientId: "1053246940642-i9fslj8lggfj7bob9g5vgrainoo6jac8.apps.googleusercontent.com",
+    webClientId: "721470406626-jmemt89bqert67i91jebaha6gas5b1bq.apps.googleusercontent.com",
+    //webClientId: "1053246940642-i9fslj8lggfj7bob9g5vgrainoo6jac8.apps.googleusercontent.com",
+
   });
 
   useEffect(() => {
@@ -105,7 +107,7 @@ export default function LoginForm() {
           // console.log("🍺 "+Object.entries(user))
           if (user.message === "User not found") {
             console.log('User not found');
-          const newuser={name:userg.name,email:userg.email}
+          const newuser={name:userg.name,email:userg.email,picture:userg.picture}
           const result = await addUsersApi(newuser);
           console.log("💪 usuario creado"+Object.entries(result))
           setUser(result)
@@ -120,16 +122,7 @@ export default function LoginForm() {
         }
       };
 
-  const handleLogout = async () => {
-    try {
-      setUserInfo(null);
-    this.setState({ userInfo: null });
-    await AsyncStorage.removeItem("@user");
-    start();
-    } catch (error) {
-      // console.error(error);
-    }
-  };
+  
   return (
   <View>
    {!userInfo ? (
@@ -144,27 +137,27 @@ export default function LoginForm() {
              
     ) : (
       
-      <View style={styles.card}>                        
+  <View style={styles.card}>                        
     
         {userInfo?.picture && (
           <Image source={{ uri: userInfo?.picture }} style={styles.image} />
         )}
-        <Text style={styles.text}>Email: {userInfo.email}</Text>
+        <Text style={styles.text}>Email: {userInfo?.email}</Text>
         <Text style={styles.text}>
           Verified: {userInfo.verified_email ? "yes" : "no"}
         </Text> 
-         <Text style={styles.text}>Name: {userInfo.name}</Text>
+         <Text style={styles.text}>Name: {userInfo?.name}</Text>
     
     <Button
       title="Cerrar Sesion"
       onPress={async () =>{ await AsyncStorage.removeItem("@user")
-      // onPress={handleLogout}
-      // onPress={signOut}
+      setUserInfo(null); 
+      setUser(null)     
     }}
     /> 
-    </View>        
+  </View>        
     )}                    
-      <Text style={styles.title}>Iniciar sesión</Text>
+      <Text style={styles.title}>Ver perfil</Text>
       {/* <TextInput
         placeholder="Nombre de usuario"
         style={styles.input}

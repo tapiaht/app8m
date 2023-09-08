@@ -13,7 +13,7 @@ export default function Challenge(props) {
   const [reloadCheck, setReloadCheck] = useState(false);
   const [idChallenge, setIdChallenge] = useState(undefined);
   const Icon = isChallenge ? FontAwesome : FontAwesome5;
-  console.log("task is challenge? ",isChallenge)
+  // console.log("task is challenge? ",isChallenge)
   useEffect(() => {
     (async () => {
       try {
@@ -64,8 +64,11 @@ export default function Challenge(props) {
   return (
     <Icon
       name="heart"
+      // name={isChallenge ? "plus" : "minus"}
+      // name={isChallenge ? "check" : "close"}
+      // name={isChallenge ? "close" : "plus"}
       color="#fff"
-      size={20}
+      size={25}
       onPress={isChallenge ? removeChallenge : addChallenge}
       style={{ marginRight: 20 }}
     />

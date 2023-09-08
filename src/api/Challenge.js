@@ -1,8 +1,8 @@
 import { API_HOST } from "../utils/constants";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { includes, pull } from "lodash";
-import { Challenge_STORAGE } from "../utils/constants";
-import { getTaskDetailsApi } from  "./task";
+// import AsyncStorage from "@react-native-async-storage/async-storage";
+// import { includes, pull } from "lodash";
+// import { Challenge_STORAGE } from "../utils/constants";
+// import { getTaskDetailsApi } from  "./task";
 
 export async function getTasksChallengeApi(id) {
   try {
@@ -10,7 +10,7 @@ export async function getTasksChallengeApi(id) {
     const response = await fetch(url);
     // console.log(response.status);
     const result = await response.json();
-    // console.log("api challenge.js get "+result)
+    console.log("api challenge.js get "+result)
     return result
   } catch (error) {
     throw error;
@@ -22,8 +22,14 @@ export async function addTaskChallengeApi(id,idu) {
     
     // const rtodo = await getTaskDetailsApi(id);
     // // const resulta = await rtodo.json();
-    // console.log("🌬️ "+rtodo.id)
-
+    console.log("🌬️ "+id+" "+idu)  
+    const fecha = new Date().toISOString().split("T")[0]
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const seconds = now.getSeconds().toString().padStart(2, '0');
+    const intime = `${hours}:${minutes}:${seconds}`;
+    
     const url = `${API_HOST}/challenge`;
     const response = await fetch(url, {
       headers: {
@@ -34,6 +40,8 @@ export async function addTaskChallengeApi(id,idu) {
       body: JSON.stringify({
         todo_id:id,
         user_id:idu,
+        inday:fecha,
+        intime:intime,
       }),
     });
     console.log(response.status);

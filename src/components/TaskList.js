@@ -8,9 +8,10 @@ import {
 import TaskCard from "./TaskCard";
 
 export default function TaskList(props) {
+  // const { Tasks, loadTasks, isNext } = props;
   const { Tasks, loadTasks, isNext } = props;
   // console.log("😈 Tasklist.js "+JSON.stringify(Tasks))
-  const laodMore = () => {
+  const loadMore = () => {
     loadTasks();
   };
 
@@ -18,11 +19,11 @@ export default function TaskList(props) {
     <FlatList
       data={Tasks}
       numColumns={2}
-      showsVerticalScrollIndicator={false}
+      showsVerticalScrollIndicator={true}
       keyExtractor={(Task) => String(Task.id)}
       renderItem={({ item }) => <TaskCard Task={item} />}
       contentContainerStyle={styles.flatListContentContainer}
-      onEndReached={isNext && laodMore}
+      onEndReached={isNext && loadMore}
       onEndReachedThreshold={0.1}
       ListFooterComponent={
         isNext && (

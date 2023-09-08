@@ -1,6 +1,6 @@
 // export const API_HOST = "https://pokeapi.co/api/v2";
-// export const API_HOST = "http://192.168.100.209:8080";
-export const API_HOST = "https://planar-ray-386522.rj.r.appspot.com";
+export const API_HOST = "http://192.168.100.207:8080";
+// export const API_HOST = "https://planar-ray-386522.rj.r.appspot.com";
 // export const API_HOST = "https://apiexpress-hu67.onrender.com";
 export const Challenge_STORAGE = "Tasksfavoritos";
 

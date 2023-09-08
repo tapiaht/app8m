@@ -36,6 +36,12 @@
       "eas": {
         "projectId": "d082263b-1b49-40e7-94ef-666509ff8ccf"
       }
+    },
+    "jest": {
+      "preset": "jest-expo",
+      "transformIgnorePatterns": [
+        "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)"
+      ]
     }
   }
 }

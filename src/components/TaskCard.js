@@ -14,12 +14,12 @@ export default function TaskCard(props) {
   const { Task } = props;
   const navigation = useNavigation();
   const tipo=Task.type.split(' ')[0]
-  console.log("🥧TaskCard.js goToTask id "+Task.type)
+  // console.log("🥧TaskCard.js goToTask id "+Task.type)
   const TaskColor = getColorByTaskType(tipo.slice(2));
   const bgStyles = { backgroundColor: TaskColor, ...styles.bgStyles };
 
   const goToTask = () => {
-    // console.log("🥧TaskCard.js goToTask id "+Task.id)
+    console.log("🥧TaskCard.js goToTask id "+Task.id)
     navigation.navigate("Task", { id: Task.id });
   };
 
@@ -34,7 +34,7 @@ export default function TaskCard(props) {
             </Text>
             {/* <Text style={styles.name}>{capitalize(Task.title)} {Task.intime}</Text> */}
             <Text style={styles.name}>{Task.type}:{capitalize(Task.name)}</Text>
-            <Text style={styles.name}>Hora:{Task.intime}</Text>
+            {/* <Text style={styles.name}>Hora:{Task.intime}</Text> */}
             <Image source={{ uri: Task.image }} style={styles.image} />
           </View>
         </View>

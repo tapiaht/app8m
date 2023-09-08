@@ -1,14 +1,16 @@
 import React, { useState, useCallback,useEffect, useRef  } from "react";
-import { Text,View, Platform,Switch,StyleSheet } from "react-native";
+import { View, Platform,Switch,StyleSheet } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import { getTasksChallengeApi } from "../api/challenge";
-import { getTaskDetailsApi } from "../api/task";
+// import { getTaskDetailsApi } from "../api/task";
+import Reto from "../components/Reto"
 import useAuth from "../hooks/useAuth";
-import TaskList from "../components/TaskList";
+// import TaskList from "../components/TaskList";
 import NoLogged from "../components/NoLogged";
 
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
+// import PickTime from "../components/PickTime";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -26,20 +28,21 @@ export default function Challenge() {
     useCallback(() => {
       if (auth) {
         (async () => {
+          console.log("🤑 user "+auth.id)
           const response = await getTasksChallengeApi(auth.id);
-          console.log("🤑 user "+Object.entries(response[1]))
           const TasksArray = [];
           for await (const item of response) {
-            console.log(item.todo_id)
+            console.log("🛏️ item"+item.todo_id)
             // const TaskDetails = await getTaskDetailsApi(item.todo_id);
             const TaskDetails = item;
             TasksArray.push({
-              id: TaskDetails.todo_id,
+              id: TaskDetails.id,
               name: TaskDetails.title,
               user:TaskDetails.user,
               type: TaskDetails.type,
               intime:TaskDetails.intime,
               inday:TaskDetails.inday,
+              completed:TaskDetails.completed,
               // order: TaskDetails.order,
               image:TaskDetails.picture,
             });
@@ -57,7 +60,7 @@ export default function Challenge() {
         Notifications.dismissAllNotificationsAsync();
         Tasks.forEach(item => {
           const [hour, minute] = item.intime.split(':').map(Number);
-          console.log(hour)
+          console.log(hour+":"+minute)
           schedulePushNotification(hour, minute,item.name,item.title);
         });
       }
@@ -88,7 +91,8 @@ return(
     {!auth ? <NoLogged /> :(
     <>        
       <View >
-        <Text>Your expo push token: {expoPushToken}</Text>
+     
+        {/* <Text>Your expo push token: {expoPushToken}</Text> */}
         {/* <Text>User: {Tasks[0].inday}</Text> */}
         <View style={styles.container}>
           <Switch
@@ -100,7 +104,9 @@ return(
           />
         </View>
       </View>
-      <TaskList Tasks={Tasks} />
+      {/* <TaskList Tasks={Tasks} /> */}
+      {/* <PickTime/> */}
+      <Reto Tasks={Tasks}/>
     </>
   )}
 </View>

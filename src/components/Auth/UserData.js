@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { StyleSheet, View, Text, Button } from "react-native";
+import { StyleSheet, View, Text, Button, Image } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import { size } from "lodash";
 import useAuth from "../../hooks/useAuth";
@@ -13,10 +13,10 @@ export default function UserData() {
     useCallback(() => {
       (async () => {
         try {
+          // console.log("😴 usuario # "+auth.name)
           const response = await getTasksChallengeApi(auth.id);
           setTotal(size(response));
         } catch (error) {
-          // console.log("😴 retos # "+error)
           setTotal(0);
         }
       })();
@@ -35,6 +35,7 @@ export default function UserData() {
         <ItemMenu title="Nombre" text={`${auth.name} `} />
         <ItemMenu title="Email" text={auth.email} />
         <ItemMenu title="Total Retos" text={`${total}`} />
+        <Image source={{ uri: auth?.picture }} style={styles.image} />
       </View>
 
       <Button title="Desconectarse" onPress={logout} style={styles.btnLogoun} />
@@ -81,5 +82,10 @@ const styles = StyleSheet.create({
   },
   btnLogoun: {
     paddingTop: 20,
+  },
+  image: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
   },
 });

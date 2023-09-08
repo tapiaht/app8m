@@ -5,7 +5,7 @@ import getColorByTaskType from "../../utils/getColorByTaskType";
 
 export default function Header(props) {
   // const { title, order, intime, image, type } = props;
-  const {name, order, image, type,intime } = props;
+  const {name, order, image, type } = props;
   console.log("header🤡"+type);
   const tipo=type.split(' ')[0]
   const color = getColorByTaskType(tipo.slice(2));
