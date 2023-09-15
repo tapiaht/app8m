@@ -10,6 +10,7 @@ import NoLogged from "../components/NoLogged";
 
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
+import * as Permissions from 'expo-permissions';
 // import PickTime from "../components/PickTime";
 
 Notifications.setNotificationHandler({
@@ -21,6 +22,7 @@ Notifications.setNotificationHandler({
 });
 
 export default function Challenge() {
+
   const [Tasks, setTasks] = useState([]);
   const { auth } = useAuth();
 
@@ -160,5 +162,6 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'flex-end', // Alinea el switch a la derecha
     marginRight: 10, // Espacio a la derecha del switch
+    backgroundColor: 'lavender'
   }
 })

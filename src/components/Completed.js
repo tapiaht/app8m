@@ -52,7 +52,10 @@ export default function Task({
 }) {
   const [isDeleteActive, setIsDeleteActive] = React.useState(false);
   const bottomSheetModalRef = useRef(null);
-
+  //const tipo=Task.type.split(' ')[0]
+  
+  //const TaskColor = getColorByTaskType(tipo.slice(2));
+  //const bgStyles = { backgroundColor: TaskColor, ...styles.bgStyles };
   const snapPoints = ["25%", "48%", "75%"];
 
   // console.log(" 🏝️ titulo en completed.js "+name)
@@ -129,7 +132,8 @@ const styles = StyleSheet.create({
     padding: 14,
     borderRadius: 21,
     marginBottom: 10,
-    backgroundColor: "white",
+    backgroundColor: "darkgray",
+    // *********************************
   },
   containerTextCheckBox: {
     flex: 1,
